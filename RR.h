@@ -1,5 +1,6 @@
 #ifndef CRR_RR_H
 #define CRR_RR_H
+
 typedef struct Process{
     int ProcessID;
     int ArrivalTime;
@@ -10,27 +11,26 @@ typedef struct Process{
     int WaitingTime;
 } Process;
 
-typedef struct Node{
-    Process *data;
-    struct Node *next;
-} Node;
-
-typedef struct LinkedList{
-    Node *head;
-    Node *tail;
+typedef struct ProcessQueue{
+    int first;
+    int last;
     int size;
-} LinkedList;
+} PQueue;
 
 void print_process(Process *process);
 
-void enqueue(LinkedList *queue, void *data);
+void enqueue(Process *arr[], PQueue *queue, void *data);
 
-Node *dequeue(LinkedList *queue);
+Process *dequeue(Process *arr[], PQueue *queue);
 
-void merge(Process *arr[], int start, int mid, int end);
+int compare_processes_AT(void* a, void* b);
 
-void sort_by_AT(Process *arr[], int start, int end);
+int compare_processes_BT(void* a, void* b);
 
-void take_input(Process *arr[], int size);
+void merge(Process *arr[], int start, int mid, int end, int (*compare)(void* a, void* b));
+
+void sort(Process *arr[], int start, int end, int (*compare)(void* a, void* b));
+
+void take_input(Process *arr[]);
 
 #endif //CRR_RR_H
